@@ -20,6 +20,8 @@ Where:
 * `{version}` is an [ISO 8601 Date](https://www.iso.org/iso-8601-date-and-time-format.html) string
 * `schema files` may be contained in subdirectories as required
 
+The newest version of a collection must use a later date than all previous versions.
+
 This prescriptive layout ensures a consistent, opinionated mapping to:
 
 * [Absolute URIs for Schemas](https://json-schema.org/draft/2020-12/json-schema-core.html#name-base-uri-anchors-and-derefe)
@@ -51,7 +53,7 @@ If I:
 * publish at domain `foo.bar`
 * decide to call my collection `baz-thud`
 * have schema files `quux.json` and `wibble.json`
-* whose first versions I cut on 25th December 2022 (`2022-12-25`)
+* whose first versions I declare against 25th December 2022 (`2022-12-25`)
 
 Then the layout of schema files will be:
 
