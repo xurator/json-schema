@@ -1,0 +1,116 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://json-schema.roughsketch.co.uk/rsk-fsm/fsm.json",
+    "title": "A schema for hierarchical Finite State Machines.",
+    "description": "The corresponding behaviour of Finite State Machines is specified in companion file `fsm.md`.",
+    "$ref": "#fsm",
+    "definitions": {
+        "fsm": {
+            "$id": "#fsm",
+            "type": "object",
+            "properties": {
+                "name": {"type": "string"},
+                "initial": {"$ref": "#state-name"},
+                "states": {"$ref": "#states"}
+            },
+            "required": ["initial", "states"],
+            "additionalProperties": false
+        },
+        "states": {
+            "$id": "#states",
+            "type": "array",
+            "items": {"$ref": "#state"}
+        },
+        "state": {
+            "$id": "#state",
+            "type": "object",
+            "properties": {
+                "state": {"$ref": "#state-name"},
+                "transitions": {"$ref": "#transitions"},
+                "initial": {"$ref": "#state-name"},
+                "enter": {"$ref": "#actions"},
+                "exit": {"$ref": "#actions"},
+                "states": {"$ref": "#states"}
+            },
+            "required": ["state"],
+            "additionalProperties": false
+        },
+        "transitions": {
+            "$id": "#transitions",
+            "type": "array",
+            "items": {"$ref": "#transition"}
+        },
+        "transition": {
+            "$id": "#transition",
+            "type": "object",
+            "properties": {
+                "event": {"$ref": "#event-name"},
+                "condition": {"$ref": "#condition"},
+                "actions": {"$ref": "#actions"},
+                "next": {"$ref": "#next-state"}
+            },
+            "required": ["event"],
+            "additionalProperties": false
+        },
+        "condition": {
+            "$id": "#condition",
+            "oneOf": [
+                {"$ref": "#condition-name"},
+                {"$ref": "#negative-condition"}
+            ]
+        },
+        "negative-condition": {
+            "$id": "#negative-condition",
+            "type": "object",
+            "properties": {
+                "not": {"$ref": "#condition-name"}
+            },
+            "required": ["not"],
+            "additionalProperties": false
+        },
+        "actions": {
+            "$id": "#actions",
+            "type": "array",
+            "items": {"$ref": "#action-name"}
+        },
+        "next-state": {
+            "$id": "#next-state",
+            "anyOf": [
+                {"$ref": "#absolute-state-pointer"},
+                {"$ref": "#relative-state-pointer"},
+                {"$ref": "#state-name"},
+                {"type": "null"}
+            ]
+        },
+        "absolute-state-pointer": {
+            "$id": "#absolute-state-pointer",
+            "type": "string",
+            "format": "absolute-state-pointer"
+        },
+        "relative-state-pointer": {
+            "$id": "#relative-state-pointer",
+            "type": "string",
+            "format": "relative-state-pointer"
+        },
+        "state-name": {
+            "$id": "#state-name",
+            "type": "string",
+            "format": "state-name"
+        },
+        "event-name": {
+            "$id": "#event-name",
+            "type": "string",
+            "format": "event-name"
+        },
+        "condition-name": {
+            "$id": "#condition-name",
+            "type": "string",
+            "format": "condition-name"
+        },
+        "action-name": {
+            "$id": "#action-name",
+            "type": "string",
+            "format": "action-name"
+        }
+    }
+}
