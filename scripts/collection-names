@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+set -o pipefail
+
+SCRIPTS="$(cd "$(dirname "${BASH_SOURCE:-$0}")" && pwd)"
+
+source "${SCRIPTS}/layout.sh"
+
+function usage () {
+    printf 'usage: %s publisher\n' "$(basename "$0")"
+    echo ''
+    echo 'Print collections of publisher'
+}
+
+[ $# -ne 1 ] && usage >&2 && exit 2
+
+PUBLISHER="$1"
+
+cd "${SCRIPTS}/.."
+
+find "${PUBLISHER}" -maxdepth 1 -type d -printf '%f\n' |
+collection-from-dirname | sort | uniq
