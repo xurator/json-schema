@@ -1,0 +1,67 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://json-schema.roughsketch.co.uk/rsk-ensure/ensure.json",
+    "title": "A schema for file class policies.",
+    "type": "object",
+    "properties": {
+        "classifiers": {
+            "type": "array",
+            "items": {"$ref": "#classifier"}
+        },
+        "policies": {
+            "type": "array",
+            "items": {"$ref": "#policies"}
+        }
+    },
+    "definitions": {
+        "class": {
+            "$id": "#class",
+            "type": "string",
+            "minLength": 1
+        },
+        "classifier": {
+            "$id": "#classifier",
+            "type": "object",
+            "properties": {
+                "class": {
+                    "#ref": "#class"
+                },
+                "extensions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "pattern": "^[^\\.]*$"
+                    }
+                }
+            },
+            "required": ["class"]
+        },
+        "policies": {
+            "$id": "#policies",
+            "type": "object",
+            "properties": {
+                "class": {
+                    "type": "array",
+                    "items": {"$ref": "#class"},
+                    "minItems": 1
+                },
+                "type": {"$ref": "#filetype"},
+                "mode": {"$ref": "#filemode"}
+            },
+            "required": ["class"]
+        },
+        "filetype": {
+            "$id": "#filetype",
+            "enum": [
+                "file",
+                "directory"
+            ]
+        },
+        "filemode": {
+            "$id": "#filemode",
+            "type": "string",
+            "pattern": "^[0-7]{4}$",
+            "length": 4
+        }
+    }
+}
