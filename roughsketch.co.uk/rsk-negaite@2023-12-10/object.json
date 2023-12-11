@@ -1,0 +1,6 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://json-schema.roughsketch.co.uk/rsk-negaite/object.json",
+    "title": "A trivial schema enforcing object type.",
+    "type": "object"
+}
