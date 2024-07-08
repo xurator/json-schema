@@ -1,0 +1,73 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://json-schema.roughsketch.co.uk/rsk-postgresql/engine.json",
+    "title": "A schema for Postgresql database engine configuration.",
+    "anyOf": [
+        {"$ref": "#auth-mutual"},
+        {"$ref": "#auth-server"},
+        {"$ref": "#unencrypted"}
+    ],
+    "definitions": {
+        "auth-mutual": {
+            "$id": "#auth-mutual",
+            "type": "object",
+            "properties": {
+                "hostname": {"type": "string"},
+                "database": {"type": "string"},
+                "username": {"type": "string"},
+                "password": {"type": "string"},
+                "sslmode": {"const": "verify-full"},
+                "sslrootcert": {"type": "string"},
+                "sslcert": {"type": "string"},
+                "sslkey": {"type": "string"},
+                "sslpassword": {"type": "string"}
+            },
+            "required": [
+                "hostname",
+                "database",
+                "username",
+                "sslmode",
+                "sslrootcert",
+                "sslcert",
+                "sslkey"
+            ],
+            "additionalProperties": false
+        },
+        "auth-server": {
+            "$id": "#auth-server",
+            "type": "object",
+            "properties": {
+                "hostname": {"type": "string"},
+                "database": {"type": "string"},
+                "username": {"type": "string"},
+                "password": {"type": "string"},
+                "sslmode": {"const": "verify-full"},
+                "sslrootcert": {"type": "string"}
+            },
+            "required": [
+                "hostname",
+                "database",
+                "username",
+                "sslmode",
+                "sslrootcert"
+            ],
+            "additionalProperties": false
+        },
+        "unencrypted": {
+            "$id": "#unencrypted",
+            "type": "object",
+            "properties": {
+                "hostname": {"type": "string"},
+                "database": {"type": "string"},
+                "username": {"type": "string"},
+                "password": {"type": "string"}
+            },
+            "required": [
+                "hostname",
+                "database",
+                "username"
+            ],
+            "additionalProperties": false
+        }
+    }
+}
