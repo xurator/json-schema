@@ -1,0 +1,67 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://json-schema.roughsketch.co.uk/rsk-languages/entries.json",
+    "description": "Related items of speech.",
+    "$ref": "#entries",
+    "definitions": {
+        "language": {
+            "$id": "#language",
+            "description": "IETF language tag (https://www.rfc-editor.org/info/bcp47[BCP 47]).",
+            "type": "string"
+        },
+        "entries": {
+            "$id": "#entries",
+            "type": "array",
+            "items": {
+                "anyOf": [{
+                    "$ref": "#entry-phrase"
+                }, {
+                    "$ref": "#entry-noun"
+                }]
+            }
+        },
+        "entry-phrase": {
+            "$id": "#entry-phrase",
+            "type": "object",
+            "propertyNames": {
+                "$ref": "#language"
+            },
+            "additionalProperties": {
+                "$ref": "#phrase"
+            }
+        },
+        "phrase": {
+            "$id": "#phrase",
+            "type": "string"
+        },
+        "entry-noun": {
+            "$id": "#entry-noun",
+            "type": "object",
+            "propertyNames": {
+                "$ref": "#language"
+            },
+            "additionalProperties": {
+                "$ref": "#noun"
+            }
+        },
+        "noun": {
+            "$id": "#noun",
+            "type": "object",
+            "properties": {
+                "singular": {
+                    "type": ["string", "boolean"]
+                },
+                "plural": {
+                    "type": ["string", "boolean"]
+                },
+                "gender": {
+                    "enum": [
+                        "masculine",
+                        "feminine",
+                        "neuter"
+                    ]
+                }
+            }
+        }
+    }
+}
