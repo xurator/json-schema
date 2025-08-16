@@ -1,0 +1,116 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://json-schema.roughsketch.co.uk/rsk-languages/entries.json",
+    "description": "Related items of speech.",
+    "$ref": "#entries",
+    "definitions": {
+        "language": {
+            "$id": "#language",
+            "description": "IETF language tag (https://www.rfc-editor.org/info/bcp47[BCP 47]).",
+            "type": "string"
+        },
+        "entries": {
+            "$id": "#entries",
+            "type": "array",
+            "items": {
+                "anyOf": [{
+                    "$ref": "#entry-phrase"
+                }, {
+                    "$ref": "#entry-noun"
+                }, {
+                    "$ref": "#entry-verb"
+                }]
+            }
+        },
+        "entry-phrase": {
+            "$id": "#entry-phrase",
+            "type": "object",
+            "propertyNames": {
+                "$ref": "#language"
+            },
+            "additionalProperties": {
+                "$ref": "#phrase"
+            }
+        },
+        "phrase": {
+            "$id": "#phrase",
+            "type": "string"
+        },
+        "entry-noun": {
+            "$id": "#entry-noun",
+            "type": "object",
+            "propertyNames": {
+                "$ref": "#language"
+            },
+            "additionalProperties": {
+                "$ref": "#noun"
+            }
+        },
+        "noun": {
+            "$id": "#noun",
+            "type": "object",
+            "properties": {
+                "singular": {
+                    "type": ["string", "boolean"]
+                },
+                "plural": {
+                    "type": ["string", "boolean"]
+                },
+                "gender": {
+                    "enum": [
+                        "masculine",
+                        "feminine",
+                        "neuter"
+                    ]
+                }
+            },
+            "additionalProperties": false
+        },
+        "entry-verb": {
+            "$id": "#entry-verb",
+            "type": "object",
+            "propertyNames": {
+                "$ref": "#language"
+            },
+            "additionalProperties": {
+                "$ref": "#verb"
+            },
+            "properties": {
+                "ru": {
+                    "$ref": "#verb-ru"
+                }
+            }
+        },
+        "verb": {
+            "$id": "#verb",
+            "type": "object",
+            "properties": {
+                "verb": {
+                    "type": "string"
+                }
+            }
+        },
+        "verb-ru": {
+            "$id": "#verb-ru",
+            "type": "object",
+            "properties": {
+                "imperfective": {
+                    "type": "string"
+                },
+                "perfective": {
+                    "type": "string"
+                },
+                "conjugation": {
+                    "enum": [
+                        "first",
+                        "second"
+                    ]
+                }
+            },
+            "required": [
+                "imperfective"
+            ],
+            "additionalProperties": false
+        }
+    }
+}
